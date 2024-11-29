@@ -3,34 +3,37 @@ public class Primes {
         // Replace this statement with your code
         int num = Integer.parseInt(args[0]);
 
-        // if (num < 2) {
-        //     return new boolean[0]; // No primes for numbers less than 2
-        // }
-
         boolean[] isPrime = new boolean[num + 1];
-        for (int i = 2; i < num; i++) isPrime[i] = true;
-        int i = 2;
-        while (i * i <= num) {
-            if (isPrime[i]) {
-                int j = i * i;
-                while (j <= num) {
-                    isPrime[j] = false;
-                    j += i;
+        for (int i = 2; i < isPrime.length; i++) isPrime[i] = true;
+
+        int p = 2;
+        while (p * p <= num) {
+            for (int i = 3; i < isPrime.length; i++) {
+                if (i % p == 0) {
+                    isPrime[i] = false;
+                    
                 }
             }
-            i++;
+            p = indexOfP(isPrime, p + 1);
         }
 
         int countPrimes = 0;
         System.out.println("Prime numbers up to " + num + ":");
-        for (int p = 0; p < isPrime.length; p++) {
-            if (isPrime[p]) {
-                System.out.println(p);
+        for (int j = 0; j < isPrime.length; j++) {
+            if (isPrime[j]) {
+                System.out.println(j);
                 countPrimes++;
             }
         }
         double percentage = ((double) (countPrimes) / num) * 100;
-        // System.out.println(percentage);
-        System.out.println("There are " + countPrimes + " between 2 and " + num + " (" +  (int) percentage + "% are primes) ");
+        System.out.println("There are " + countPrimes + " primes between 2 and " + num + " (" +  (int) percentage + "% are primes) ");
     }
+
+    public static int indexOfP(boolean[] arr, int fromIndex) {
+        for (int i = fromIndex; i < arr.length; i++) {
+            if (arr[i]) return i;
+        }
+        return -1;
+    }
+
 }
