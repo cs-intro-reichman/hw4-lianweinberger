@@ -8,13 +8,14 @@ public class Primes {
 
         int p = 2;
         while (p * p <= num) {
-            for (int i = 3; i < isPrime.length; i++) {
-                if (i % p == 0) {
+            if (isPrime[p]) {
+                int i = p * p; 
+                while (i <= num) {
                     isPrime[i] = false;
-                    
+                    i += p; 
                 }
             }
-            p = indexOfP(isPrime, p + 1);
+            p++;
         }
 
         int countPrimes = 0;
@@ -27,13 +28,6 @@ public class Primes {
         }
         double percentage = ((double) (countPrimes) / num) * 100;
         System.out.println("There are " + countPrimes + " primes between 2 and " + num + " (" +  (int) percentage + "% are primes) ");
-    }
-
-    public static int indexOfP(boolean[] arr, int fromIndex) {
-        for (int i = fromIndex; i < arr.length; i++) {
-            if (arr[i]) return i;
-        }
-        return -1;
     }
 
 }
